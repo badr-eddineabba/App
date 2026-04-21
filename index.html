@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSAC Scholar — Portail des Masters</title>
+    <meta name="description" content="Accédez aux ressources pédagogiques de tous les Masters de la Faculté des Sciences Aïn Chock — UH2C.">
+    <meta name="author" content="BADREDDINE ABBA">
+
+    <script>
+        // Redirection automatique pour les sous-domaines
+        (function() {
+            const hostname = window.location.hostname;
+            if (hostname.includes('badreddineabba.com') && !hostname.startsWith('www') && hostname !== 'badreddineabba.com') {
+                window.location.replace('/master.html');
+            }
+        })();
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V31PNLYHBK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date()); gtag('config', 'G-V31PNLYHBK');
+    </script>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="bg-canvas" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header id="main-header">
+        <a href="index.html" class="brand" aria-label="FSAC Scholar — Accueil">
+            <div class="brand-logo">
+                <img src="assets/img/fsac-scholar.png" alt="FSAC Scholar"
+                    onerror="this.style.display='none'">
+            </div>
+            <div class="brand-text">
+                <span class="brand-name">FSAC Scholar</span>
+                <span class="brand-sub">Faculté des Sciences Aïn Chock · UH2C</span>
+            </div>
+        </a>
+
+        <nav class="header-nav" aria-label="Navigation principale">
+            <a href="training.html" class="nav-link" id="nav-training">
+                <i class="fas fa-bolt"></i>
+                <span>Training Hub</span>
+            </a>
+            <a href="admin/index.html" class="nav-link nav-admin" id="nav-admin">
+                <i class="fas fa-shield-alt"></i>
+                <span>Admin</span>
+            </a>
+        </nav>
+
+        <button id="theme-toggle" class="btn-icon" title="Thème" aria-label="Changer le thème">
+            <i id="theme-icon" class="fas fa-sun"></i>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+        <a href="training.html" class="drawer-link">
+            <i class="fas fa-bolt"></i> Training Hub
+        </a>
+        <a href="admin/index.html" class="drawer-link">
+            <i class="fas fa-shield-alt"></i> Espace Admin
+        </a>
+        <button onclick="toggleTheme();closeMobileDrawer();" class="drawer-link drawer-theme-btn" id="drawer-theme-btn">
+            <i class="fas fa-sun" id="drawer-theme-icon"></i>
+            <span id="drawer-theme-label">Mode clair</span>
+        </button>
+    </div>
+    <div class="drawer-overlay" id="drawer-overlay" onclick="closeMobileDrawer()"></div>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-header-inner">
+                <div>
+                    <h1 class="page-title">Formations Masters</h1>
+                    <p class="page-subtitle">
+                        15 programmes de Master · Faculté des Sciences Aïn Chock
+                    </p>
+                </div>
+                <a href="training.html" class="training-shortcut" id="training-shortcut">
+                    <div class="ts-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="ts-text">
+                        <span class="ts-label">Training Hub</span>
+                        <span class="ts-sub">Ressources partagées tous Masters</span>
+                    </div>
+                    <i class="fas fa-arrow-right ts-arrow"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Filters / Stats bar -->
+        <div class="filter-bar">
+            <div class="filter-bar-inner">
+                <div class="filter-stats">
+                    <span class="fstat">
+                        <span class="fstat-dot active-dot"></span>
+                        <span id="count-active">2</span> Masters actifs
+                    </span>
+                    <span class="fstat-sep">·</span>
+                    <span class="fstat">
+                        <span class="fstat-dot soon-dot"></span>
+                        <span id="count-soon">13</span> En déploiement
+                    </span>
+                </div>
+                <div class="filter-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="master-search" placeholder="Filtrer les Masters…"
+                        oninput="filterMasters(this.value)" autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <!-- Masters Grid -->
+        <div class="grid-wrap">
+            <div class="masters-grid" id="masters-container">
+                <!-- Skeleton -->
+                <div class="master-card skeleton-card">
+                    <div class="sk sk-badge"></div>
+                    <div class="sk sk-icon"></div>
+                    <div class="sk sk-title"></div>
+                    <div class="sk sk-text"></div>
+                </div>
+                <div class="master-card skeleton-card">
+                    <div class="sk sk-badge"></div>
+                    <div class="sk sk-icon"></div>
+                    <div class="sk sk-title"></div>
+                    <div class="sk sk-text"></div>
+                </div>
+                <div class="master-card skeleton-card">
+                    <div class="sk sk-badge"></div>
+                    <div class="sk sk-icon"></div>
+                    <div class="sk sk-title"></div>
+                    <div class="sk sk-text"></div>
+                </div>
+            </div>
+
+            <!-- Empty search state (hidden by default) -->
+            <div class="no-results" id="no-results" style="display:none;" aria-live="polite">
+                <i class="fas fa-search"></i>
+                <p>Aucun master trouvé pour cette recherche.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-copy">&copy; <span id="year"></span> FSAC Scholar · v4.0</span>
+            <div class="footer-links">
+                <a href="https://ww2.fsc.ma/" target="_blank" rel="noopener" id="footer-fsac">Site FSAC</a>
+                <a href="mailto:contact@fsac.ma" id="footer-support">Support</a>
+                <a href="https://www.linkedin.com/in/badreddineabba" target="_blank" rel="noopener" id="footer-dev">Par B. Abba</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
